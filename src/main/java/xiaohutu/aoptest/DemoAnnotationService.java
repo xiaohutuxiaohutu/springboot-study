@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 public class DemoAnnotationService {
     @Action(name="注解拦截add操作")
     public void add(){
-
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxx");
     }
 }
