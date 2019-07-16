@@ -11,6 +11,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 
+import java.io.*;
 import java.util.Properties;
 
 
@@ -47,10 +48,14 @@ public class ElConfig {
             //获取系统配置
             Properties properties = System.getProperties();
             System.out.println("user.name:"+properties.get("user.name"));
-
+            System.out.println("randomNumber:"+randomNumber);
             System.out.println("normal:"+normal);
             System.out.println("osName："+osName);
             System.out.println("fromAnother:"+fromAnother);
+            PrintWriter writer = new PrintWriter("xiaohutu/springel/test.txt");
+            writer.print("1qwert123");
+            writer.flush();
+
             System.out.println("testFile:"+IOUtils.toString(testFile.getInputStream()));
             System.out.println("testUrl:"+IOUtils.toString(testUrl.getInputStream(), "utf-8"));
             System.out.println("bookName:"+bookName);
