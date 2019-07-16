@@ -1,17 +1,23 @@
 package xiaohutu.springel;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.Resource;
 
-import javax.annotation.Resource;
+import java.util.Properties;
+
 
 @Configuration
 @ComponentScan("xiaohutu.springel")
-@PropertySource("classpath:xiaohutu/springel/test.properties")
+@PropertySource(value = "classpath:xiaohutu/springel/test.properties",ignoreResourceNotFound=false,
+encoding = "UTF-8", name="test.properties")
 public class ElConfig {
     @Value("i love y")
     private String normal;
@@ -30,5 +36,28 @@ public class ElConfig {
     private String bookName;
     @Autowired
     private Environment environment;
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyConfigure() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
+    public void outputResource() {
+        try {
+            //获取系统配置
+            Properties properties = System.getProperties();
+            System.out.println("user.name:"+properties.get("user.name"));
+
+            System.out.println("normal:"+normal);
+            System.out.println("osName："+osName);
+            System.out.println("fromAnother:"+fromAnother);
+            System.out.println("testFile:"+IOUtils.toString(testFile.getInputStream()));
+            System.out.println("testUrl:"+IOUtils.toString(testUrl.getInputStream(), "utf-8"));
+            System.out.println("bookName:"+bookName);
+            System.out.println("environment.getProperty(\"book.author\"):"+environment.getProperty("book.author"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
