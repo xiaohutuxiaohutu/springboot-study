@@ -1,0 +1,5 @@
+1 aop---自定义日志注解使用
+2 event---application event
+3 el-----注入属性值
+4 profile---使用不同的配置文件创建不同的bean
+5 annonation---不同的注解方式生成bean
