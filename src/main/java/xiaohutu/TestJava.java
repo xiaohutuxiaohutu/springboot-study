@@ -7,6 +7,9 @@ public class TestJava {
     public static void main(String[] args) {
         String[] s1 = new String[0];
         System.out.println(s1.length);
+        for (String s : s1) {
+            System.out.println("s:" + s);
+        }
         String[] strings2 = {"a"};
         System.out.println(strings2.length);
 
