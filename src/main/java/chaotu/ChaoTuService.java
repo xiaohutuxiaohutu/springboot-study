@@ -8,6 +8,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -41,16 +42,21 @@ public class ChaoTuService {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setContentType(ContentType.MULTIPART_FORM_DATA);
         builder.setCharset(Charset.forName("utf-8"));
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+
+
         builder.addTextBody("attrs", JSON.toJSONString(map));
 
         // 把文件加到HTTP的post请求中
         File f = new File(filePath);
         System.out.println(f.getName());
+        //防止中文乱码
+        ContentType contentType = ContentType.create("application/octet-stream", "utf-8");
         builder.addBinaryBody(
                 "file",
                 new FileInputStream(f),
-                ContentType.APPLICATION_OCTET_STREAM,
-                f.getName().getBytes("utf-8").toString()
+                contentType,
+                f.getName()
         );
 
         HttpEntity multipart = builder.build();
