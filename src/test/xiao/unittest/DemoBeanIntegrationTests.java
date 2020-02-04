@@ -1,4 +1,4 @@
-package xiaomi;
+package xiao.unittest;
 
 import highlevel.UnitTest.TestBean;
 import highlevel.UnitTest.TestConfig;
